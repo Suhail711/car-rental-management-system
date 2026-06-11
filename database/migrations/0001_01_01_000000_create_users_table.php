@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Validation\Rules\Unique;
 
 return new class extends Migration
 {
@@ -14,8 +15,12 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
+            $table->string('phone_number')->unique();
+            $table->string('email')->unique()->nullable();
+            $table->string('id_card_image')->nullable();
+            $table->string('id_card_number')->unique();
+            $table->enum('type', ['customer', 'employee', 'manager'])
+            ->default('customer');
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
